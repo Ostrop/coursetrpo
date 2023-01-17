@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace CourseProjectTRPO
 {
-    public partial class AdministrationPanel : Form
+    public partial class MainDoctorPanel : Form
     {
         checkUser user;
-        public AdministrationPanel(checkUser user1)
+        public MainDoctorPanel(checkUser user1)
         {
             InitializeComponent();
             user = user1;

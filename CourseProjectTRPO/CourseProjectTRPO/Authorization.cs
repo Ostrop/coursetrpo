@@ -14,7 +14,7 @@ namespace CourseProjectTRPO
     public partial class Authorization : Form
     {
         DataBase dataBase = new DataBase();
-
+        Form form1;
         public Authorization()
         {
             InitializeComponent();
@@ -40,17 +40,40 @@ namespace CourseProjectTRPO
 
             if (table.Rows.Count == 1)
             {
-                var user = new checkUser(table.Rows[0].ItemArray[1].ToString(), table.Rows[0].ItemArray[2].ToString(), table.Rows[0].ItemArray[3].ToString(), table.Rows[0].ItemArray[4].ToString(), table.Rows[0].ItemArray[5].ToString());
-                switch (user)
+                var user = new checkUser(table.Rows[0].ItemArray[1].ToString(), table.Rows[0].ItemArray[2].ToString(), table.Rows[0].ItemArray[3].ToString(), table.Rows[0].ItemArray[4].ToString(), Convert.ToInt32(table.Rows[0].ItemArray[5]));
+                switch (user.PostId)
                 {
-                    //case "":
+                    case 0:
+                        form1 = new AdministrationPanel(user);
+                        this.Hide();
+                        form1.ShowDialog();
+                        this.Show();
+                        break;
+                    case 1:
+                        form1 = new RegistrationPanel(user);
+                        this.Hide();
+                        form1.ShowDialog();
+                        this.Show();
+                        break;
+                    case 12:
+                        form1 = new MainDoctorPanel(user);
+                        this.Hide();
+                        form1.ShowDialog();
+                        this.Show();
+                        break;
+                    default:
+                        form1 = new DoctorPanel(user);
+                        this.Hide();
+                        form1.ShowDialog();
+                        this.Show();
+                        break;
                 }
-                //this.Hide();
-
-                //this.Show();
             }
             else
-                MessageBox.Show("Такого аккаунта не существует!", "Аккаунт не существует!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            {
+                MessageBox.Show("Проверьте введённые данные", "Ошибка авторизации", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                textBox2.Text = null;
+            }
         }
     }
 }
