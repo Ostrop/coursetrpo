@@ -40,22 +40,22 @@ namespace CourseProjectTRPO
 
             if (table.Rows.Count == 1)
             {
-                var user = new checkUser(table.Rows[0].ItemArray[1].ToString(), table.Rows[0].ItemArray[2].ToString(), table.Rows[0].ItemArray[3].ToString(), table.Rows[0].ItemArray[4].ToString(), Convert.ToInt32(table.Rows[0].ItemArray[5]));
-                switch (user.PostId)
+                var user = new checkUser(table.Rows[0].ItemArray[1].ToString(), table.Rows[0].ItemArray[2].ToString(), table.Rows[0].ItemArray[3].ToString(), table.Rows[0].ItemArray[4].ToString());
+                switch (user.Post)
                 {
-                    case 0:
+                    case "Системный администратор":
                         form1 = new AdministrationPanel(user);
                         this.Hide();
                         form1.ShowDialog();
                         this.Show();
                         break;
-                    case 1:
+                    case "Регистратор":
                         form1 = new RegistrationPanel(user);
                         this.Hide();
                         form1.ShowDialog();
                         this.Show();
                         break;
-                    case 12:
+                    case "Главный врач":
                         form1 = new MainDoctorPanel(user);
                         this.Hide();
                         form1.ShowDialog();

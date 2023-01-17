@@ -18,5 +18,6 @@ namespace CourseProjectTRPO
             InitializeComponent();
             user = user1;
         }
+
     }
 }

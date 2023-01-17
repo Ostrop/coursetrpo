@@ -92,6 +92,12 @@
     <EmbeddedResource Include="Authorization.resx">
       <DependentUpon>Authorization.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DoctorPanel.resx">
+      <DependentUpon>DoctorPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainDoctorPanel.resx">
+      <DependentUpon>MainDoctorPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -102,6 +108,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RegistrationPanel.resx">
+      <DependentUpon>RegistrationPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="CourseProjectTRPODataSet.xsc">
       <DependentUpon>CourseProjectTRPODataSet.xsd</DependentUpon>
     </None>

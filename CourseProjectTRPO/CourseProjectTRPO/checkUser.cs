@@ -8,19 +8,18 @@ namespace CourseProjectTRPO
 {
     public class checkUser
     {
+        //some add
         public string Surname { get; set; } 
         public string Name { get; set; }
         public string Patronymic { get; set; }
         public string Post { get; set; }
-        public int PostId { get; set; }
 
-        public checkUser(string post, string surname, string name, string patronymic, int id)
+        public checkUser(string post, string surname, string name, string patronymic)
         {
             Surname = surname;
             Name = name;
             Patronymic = patronymic;
             Post = post;
-            PostId = id;
         }
     }
 }
