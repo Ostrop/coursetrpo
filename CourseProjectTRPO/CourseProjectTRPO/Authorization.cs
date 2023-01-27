@@ -33,7 +33,7 @@ namespace CourseProjectTRPO
 
             SqlDataAdapter adapter = new SqlDataAdapter();
             DataTable table = new DataTable();
-            string str = $"SELECT naming, surname, name, patronymic, Staff.id_post FROM Staff INNER JOIN Posts ON Staff.id_post = Posts.id_post WHERE login = '{login}' AND password = '{password}'";
+            string str = $"SELECT naming, surname, name, patronymic FROM Staff INNER JOIN Posts ON Staff.id_post = Posts.id_post WHERE login = '{login}' AND password = '{password}'";
             SqlCommand command = new SqlCommand(str, dataBase.getConnection());
 
             adapter.SelectCommand = command;
@@ -41,7 +41,7 @@ namespace CourseProjectTRPO
 
             if (table.Rows.Count == 1)
             {
-                var user = new checkUser(table.Rows[0].ItemArray[1].ToString(), table.Rows[0].ItemArray[2].ToString(), table.Rows[0].ItemArray[3].ToString(), table.Rows[0].ItemArray[4].ToString());
+                var user = new checkUser(table.Rows[0].ItemArray[0].ToString(), table.Rows[0].ItemArray[1].ToString(), table.Rows[0].ItemArray[2].ToString(), table.Rows[0].ItemArray[3].ToString());
                 switch (user.Post)
                 {
                     case "Системный администратор":

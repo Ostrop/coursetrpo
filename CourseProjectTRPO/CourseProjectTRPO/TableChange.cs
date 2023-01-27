@@ -182,6 +182,7 @@ namespace CourseProjectTRPO
             foreach (var item in listtextbox)
                 item.Text = string.Empty;
             selectedRow = 0;
+            dataGridView1.Columns[dataGridView1.Columns.Count - 1].Visible = false;
         }
         //кнопка удалить
         private void button3_Click(object sender, EventArgs e)
