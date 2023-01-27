@@ -86,6 +86,12 @@
     <Compile Include="RegistrationPanel.Designer.cs">
       <DependentUpon>RegistrationPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="TableChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TableChange.Designer.cs">
+      <DependentUpon>TableChange.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AdministrationPanel.resx">
       <DependentUpon>AdministrationPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +116,9 @@
     </Compile>
     <EmbeddedResource Include="RegistrationPanel.resx">
       <DependentUpon>RegistrationPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TableChange.resx">
+      <DependentUpon>TableChange.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="CourseProjectTRPODataSet.xsc">
       <DependentUpon>CourseProjectTRPODataSet.xsd</DependentUpon>

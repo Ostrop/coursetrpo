@@ -16,8 +16,27 @@ namespace CourseProjectTRPO
         public AdministrationPanel(checkUser user1)
         {
             InitializeComponent();
+            //изменение размера окна
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            StartPosition = FormStartPosition.CenterScreen;
             user = user1;
+            label2.Text = user.Surname + " " + user.Name + " " + user.Patronymic;
         }
 
+        private void AdministrationPanel_Activated(object sender, EventArgs e)
+        {
+            label3.Text = DateTime.Today.ToShortDateString().ToString();
+        }
+        //Медкарты
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Button obj = (Button)sender;
+            TableChange form1 = new TableChange(obj.Text);
+            this.Hide();
+            form1.ShowDialog();
+            this.Show();
+        }
     }
 }

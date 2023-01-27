@@ -18,6 +18,7 @@ namespace CourseProjectTRPO
         public Authorization()
         {
             InitializeComponent();
+            //изменение размера окна
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
