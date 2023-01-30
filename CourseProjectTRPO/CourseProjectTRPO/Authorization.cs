@@ -48,24 +48,28 @@ namespace CourseProjectTRPO
                         form1 = new AdministrationPanel(user);
                         this.Hide();
                         form1.ShowDialog();
+                        textBox2.Text = string.Empty;
                         this.Show();
                         break;
                     case "Регистратор":
                         form1 = new RegistrationPanel(user);
                         this.Hide();
                         form1.ShowDialog();
+                        textBox2.Text = string.Empty;
                         this.Show();
                         break;
                     case "Главный врач":
                         form1 = new MainDoctorPanel(user);
                         this.Hide();
                         form1.ShowDialog();
+                        textBox2.Text = string.Empty;
                         this.Show();
                         break;
                     default:
                         form1 = new DoctorPanel(user);
                         this.Hide();
                         form1.ShowDialog();
+                        textBox2.Text = string.Empty;
                         this.Show();
                         break;
                 }

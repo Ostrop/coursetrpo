@@ -33,7 +33,7 @@ namespace CourseProjectTRPO
         private void button1_Click(object sender, EventArgs e)
         {
             Button obj = (Button)sender;
-            TableChange form1 = new TableChange(obj.Text);
+            TableChange form1 = new TableChange(obj.Text, string.Empty);
             this.Hide();
             form1.ShowDialog();
             this.Show();

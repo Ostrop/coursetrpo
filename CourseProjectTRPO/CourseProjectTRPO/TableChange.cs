@@ -28,10 +28,10 @@ namespace CourseProjectTRPO
         List<Label> listlabel = new List<Label>();
         DataBase dataBase = new DataBase();
         int selectedRow;
-
+        string buf;
         string tablename;
         //Конструктор формы
-        public TableChange(string _tablename)
+        public TableChange(string _tablename, string _buf)
         {
             InitializeComponent();
             //изменение размера окна
@@ -39,6 +39,7 @@ namespace CourseProjectTRPO
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
+            buf = _buf;
             groupBox3.Visible = false;
             dataGridView1.ReadOnly = true;
             button6.Enabled = false;
@@ -58,13 +59,19 @@ namespace CourseProjectTRPO
                 case "Должности": tablename = "Posts"; break;
                 case "Расписание": tablename = "Timetable"; break;
             }
-
             adapter = new SqlDataAdapter("SELECT * FROM " + tablename, dataBase.getConnection());
+
+            if (buf != string.Empty)
+            {
+                searchBox.Enabled = false;
+                searchBox.Text = buf;
+                adapter = new SqlDataAdapter("SELECT * FROM " + tablename + " WHERE id_patient = " + buf, dataBase.getConnection());
+            }
 
             ds = new DataSet();
             adapter.Fill(ds);
-            dataGridView1.DataSource = ds.Tables[0];
             ds.Tables[0].Columns.Add("IsNew");
+            dataGridView1.DataSource = ds.Tables[0];
             for (int i = 0; i < dataGridView1.RowCount; i++)
                 dataGridView1.Rows[i].Cells[dataGridView1.Columns.Count - 1].Value = RowState.ModifiedNew;
 
@@ -132,6 +139,13 @@ namespace CourseProjectTRPO
                     }
                     break;
             }
+            if (buf != string.Empty)
+            {
+                searchBox.Enabled = false;
+                searchBox.Text = buf;
+                listtextbox[1].Text = buf;
+                listtextbox[1].Enabled = false;
+            }
         }
         //обработчик числовых полей
         private void textBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -171,11 +185,15 @@ namespace CourseProjectTRPO
         private void button1_Click(object sender, EventArgs e)
         {
             dataGridView1.CurrentCell = null;
+            searchBox.Text = string.Empty;
             adapter = new SqlDataAdapter("SELECT * FROM " + tablename, dataBase.getConnection());
+            if (buf != string.Empty)
+                adapter = new SqlDataAdapter("SELECT * FROM " + tablename + " WHERE id_patient = " + buf, dataBase.getConnection());
+
             ds = new DataSet();
             adapter.Fill(ds);
-            dataGridView1.DataSource = ds.Tables[0];
             ds.Tables[0].Columns.Add("IsNew");
+            dataGridView1.DataSource = ds.Tables[0];
             for (int i = 0; i < dataGridView1.RowCount; i++)
                 dataGridView1.Rows[i].Cells[dataGridView1.Columns.Count - 1].Value = RowState.ModifiedNew;
 
@@ -183,25 +201,36 @@ namespace CourseProjectTRPO
                 item.Text = string.Empty;
             selectedRow = 0;
             dataGridView1.Columns[dataGridView1.Columns.Count - 1].Visible = false;
+            if (buf != string.Empty)
+            {
+                searchBox.Enabled = false;
+                searchBox.Text = buf;
+                listtextbox[1].Text = buf;
+                listtextbox[1].Enabled = false;
+            }
         }
         //кнопка удалить
         private void button3_Click(object sender, EventArgs e)
         {
-            int index = dataGridView1.CurrentCell.RowIndex;
-            foreach (var item in listtextbox)
+            try
             {
-                item.Text = string.Empty;
-            }
-            dataGridView1.CurrentCell = null;
-            dataGridView1.Rows[index].Visible = false;
+                int index = dataGridView1.CurrentCell.RowIndex;
+                foreach (var item in listtextbox)
+                {
+                    item.Text = string.Empty;
+                }
+                dataGridView1.CurrentCell = null;
+                dataGridView1.Rows[index].Visible = false;
 
-            if (dataGridView1.Rows[index].Cells[0].ToString() == String.Empty)
-            {
+                if (dataGridView1.Rows[index].Cells[0].ToString() == String.Empty)
+                {
+                    dataGridView1.Rows[index].Cells[dataGridView1.ColumnCount - 1].Value = RowState.Deleted;
+                    return;
+                }
                 dataGridView1.Rows[index].Cells[dataGridView1.ColumnCount - 1].Value = RowState.Deleted;
-                return;
-            }
-            dataGridView1.Rows[index].Cells[dataGridView1.ColumnCount - 1].Value = RowState.Deleted;
 
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
 
         }
 
@@ -293,6 +322,14 @@ namespace CourseProjectTRPO
                 }
             }
             dataBase.closedConnection();
+
+            if (buf != string.Empty)
+            {
+                searchBox.Enabled = false;
+                searchBox.Text = buf;
+                listtextbox[1].Text = buf;
+                listtextbox[1].Enabled = false;
+            }
         }
 
         //кнопка сохранить
@@ -342,6 +379,14 @@ namespace CourseProjectTRPO
                         }
                         break;
                 }
+
+                if (buf != string.Empty)
+                {
+                    searchBox.Enabled = false;
+                    searchBox.Text = buf;
+                    listtextbox[1].Text = buf;
+                    listtextbox[1].Enabled = false;
+                }
             }
             catch { }
 
@@ -354,41 +399,20 @@ namespace CourseProjectTRPO
             groupBox1.Visible = false;
             button1_Click(sender, e);
             label2.Text = "Создание новой записи";
-            switch (label3.Text)
+            sqlstring = $"INSERT INTO {tablename} (";
+            for (int i = 0; i < dataGridView1.ColumnCount - 1; i++)
+                sqlstring += $"{dataGridView1.Columns[i].HeaderCell.Value.ToString()}, ";
+
+            sqlstring = sqlstring.Remove(sqlstring.Length - 2);
+            sqlstring += $") VALUES (";
+            if (buf != string.Empty)
             {
-                case "Медицинские карты":
-                    sqlstring = "INSERT INTO " + tablename + "(id_patient, surname, [name], patronymic, passport, birth_date, height, phone_number, email, residential_address) VALUES (";
-                    break;
-                case "Полисы":
-                    break;
-                case "Осмотры":
-                    break;
-                case "Процедуры":
-                    sqlstring = "INSERT INTO [" + tablename + "](id_procedure, type_procedure, price ) VALUES (";
-                    break;
-                case "Назначенные процедуры":
-                    break;
-                case "Диагнозы":
-                    sqlstring = "INSERT INTO " + tablename + "(id_diagnosis, naming) VALUES (";
-                    break;
-                case "Поставленные диагнозы":
-                    break;
-                case "Персонал":
-                    sqlstring = "INSERT INTO " + tablename + "(id_staff, id_post, surname, [name], patronymic, passport, birth_date, phone_number, email, residential_address) VALUES (";
-                    break;
-                case "Зарплата":
-                    sqlstring = "INSERT INTO " + tablename + "(id_staff, [month], [year], salary, award) VALUES (";
-                    break;
-                case "Документы об образовании":
-                    sqlstring = "INSERT INTO " + tablename + "(document_number, id_staff, issue_date, organization) VALUES (";
-                    break;
-                case "Должности":
-                    sqlstring = "INSERT INTO " + tablename + "(id_post, naming) VALUES (";
-                    break;
-                case "Расписание":
-                    sqlstring = "INSERT INTO " + tablename + "(id_staff, date) VALUES (";
-                    break;
+                searchBox.Enabled = false;
+                searchBox.Text = buf;
+                listtextbox[1].Text = buf;
+                listtextbox[1].Enabled = false;
             }
+
         }
         //кнопка отменить
         private void button7_Click(object sender, EventArgs e)
@@ -398,6 +422,13 @@ namespace CourseProjectTRPO
             groupBox2.Visible = true;
             label2.Text = "Запись";
             button1_Click(sender, e);
+            if (buf != string.Empty)
+            {
+                searchBox.Enabled = false;
+                searchBox.Text = buf;
+                listtextbox[1].Text = buf;
+                listtextbox[1].Enabled = false;
+            }
         }
         //Подтвердить создание новой записи
         private void button6_Click(object sender, EventArgs e)
@@ -420,15 +451,17 @@ namespace CourseProjectTRPO
                     sqlstring += ");";
                     break;
                 case "Персонал":
-                    sqlstring += dataGridView1.RowCount + 1 + ", ";
+                    sqlstring += dataGridView1.RowCount + ", ";
                     for (int i = 0; i < listtextbox.Count; i++)
                     {
                         if (i > listtextbox.Count - 1 && (ds.Tables[0].Columns[i].DataType.ToString() == "System.Int32" || ds.Tables[0].Columns[i + 1].DataType.ToString() == "System.Double"))
                             sqlstring += listtextbox[i].Text + ", ";
-                        else if (i > listtextbox.Count - 1)
+                        else if (i < listtextbox.Count - 1)
                             sqlstring += "'" + listtextbox[i].Text + "', ";
-                        else
+                        else if (listtextbox[i].Text != string.Empty)
                             sqlstring += "'" + md5.hashPassword(listtextbox[i].Text) + "', ";
+                        else
+                            sqlstring += "'', ";
                     }
                     sqlstring = sqlstring.Remove(sqlstring.Length - 2);
                     sqlstring += ");";
@@ -453,6 +486,14 @@ namespace CourseProjectTRPO
             groupBox2.Visible = true;
             label2.Text = "Запись";
             button1_Click(sender, e);
+
+            if (buf != string.Empty)
+            {
+                searchBox.Enabled = false;
+                searchBox.Text = buf;
+                listtextbox[1].Text = buf;
+                listtextbox[1].Enabled = false;
+            }
         }
         //кнопка изменить
         private void button4_Click(object sender, EventArgs e)
@@ -474,6 +515,33 @@ namespace CourseProjectTRPO
                     dataGridView1.Rows[selectedRowIndex].Cells[dataGridView1.ColumnCount - 1].Value = RowState.Modified;
                     break;
             }
+        }
+        //Метод поиска
+        private void Search(DataGridView dgw)
+        {
+            try
+            {
+                string searchString = $"SELECT * FROM {tablename} where concat (";
+                for (int i = 0; i < dgw.ColumnCount - 1; i++)
+                    searchString += $"{dgw.Columns[i].HeaderCell.Value.ToString()}, ";
+                searchString = searchString.Remove(searchString.Length - 2);
+                searchString += $") like '%{searchBox.Text}%'";
+
+                adapter = new SqlDataAdapter(searchString, dataBase.getConnection());
+                ds = new DataSet();
+                adapter.Fill(ds);
+                ds.Tables[0].Columns.Add("IsNew");
+                dataGridView1.DataSource = ds.Tables[0]; for (int i = 0; i < dataGridView1.RowCount; i++)
+                    dataGridView1.Rows[i].Cells[dataGridView1.Columns.Count - 1].Value = RowState.ModifiedNew;
+
+                dataGridView1.Columns[dataGridView1.Columns.Count - 1].Visible = false;
+            }
+            catch { }
+        }
+        //Текстбокс поиска
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            Search(dataGridView1);
         }
     }
 }
