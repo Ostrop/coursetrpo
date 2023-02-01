@@ -9,7 +9,7 @@ namespace CourseProjectTRPO
 {
     class DataBase
     {
-        SqlConnection sqlConnection = new SqlConnection(@"Data Source=DESKTOP-HRSRDD3\SQLEXPRESS;Initial Catalog=CourseProjectTRPO;Integrated Security=True");
+        SqlConnection sqlConnection = new SqlConnection(@"Data Source=DIKHNICHHONOR\SQLEXPRESS;Initial Catalog=CourseProjectTRPO1;Integrated Security=True");
 
 
         public void openConnection()

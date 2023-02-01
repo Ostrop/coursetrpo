@@ -27,7 +27,7 @@ namespace CourseProjectTRPO
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Authorization));
             this.label1 = new System.Windows.Forms.Label();
@@ -83,6 +83,7 @@ namespace CourseProjectTRPO
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(128, 30);
+            this.label3.Name = "label3";
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(123, 23);
             this.label3.TabIndex = 4;
@@ -149,11 +150,11 @@ namespace CourseProjectTRPO
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Button button1;
     }
 }

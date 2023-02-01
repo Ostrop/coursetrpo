@@ -14,6 +14,14 @@ namespace CourseProjectTRPO
         public string Patronymic { get; set; }
         public string Post { get; set; }
 
+        public checkUser()
+        {
+
+            Surname = string.Empty;
+            Name = string.Empty;
+            Patronymic = string.Empty;
+            Post = string.Empty;
+        }
         public checkUser(string post, string surname, string name, string patronymic)
         {
             Surname = surname;

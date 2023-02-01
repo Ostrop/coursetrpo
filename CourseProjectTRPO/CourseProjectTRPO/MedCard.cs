@@ -19,7 +19,7 @@ namespace CourseProjectTRPO
         string sqlstring = string.Empty;
         int client_id;
         ClientAddServ form;
-        public MedCard(int _client_id, bool IsDoctor)
+        public MedCard(int _client_id, bool IsDoctor, RegistrationPanel form)
         {
             client_id = _client_id;
             InitializeComponent();
@@ -28,6 +28,7 @@ namespace CourseProjectTRPO
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
+            form.areOpened = true;
             LoadDGW();
             if (IsDoctor)
             {

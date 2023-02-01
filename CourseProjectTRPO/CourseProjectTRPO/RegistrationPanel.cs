@@ -19,6 +19,7 @@ namespace CourseProjectTRPO
         DataSet ds;
         string sqlstring = string.Empty;
         int selectedRow;
+        public bool areOpened;
 
         public RegistrationPanel(checkUser user1)
         {
@@ -48,7 +49,7 @@ namespace CourseProjectTRPO
                     "INNER JOIN Posts ON Staff.id_post = Posts.id_post WHERE naming != 'Системный администратор' AND naming != 'Регистратор' " +
                     "AND naming != 'Главный врач' AND naming != 'Медсестра (медбрат)'";
                 if (checkBox1.Checked)
-                    sqlstring += $" AND procedure_date > DATEADD(day, -1, convert(date, getdate()))";
+                    sqlstring += $" AND procedure_date >= DATEADD(day, -1, convert(date, getdate()))";
                 adapter = new SqlDataAdapter(sqlstring, dataBase.getConnection());
                 adapter.Fill(ds);
                 sqlstring = "SELECT id_patient, examination_date AS 'Дата', naming AS 'Должность', " +
@@ -57,7 +58,7 @@ namespace CourseProjectTRPO
                     "INNER JOIN Posts ON Staff.id_post = Posts.id_post WHERE naming != 'Системный администратор' AND naming != 'Регистратор' " +
                     "AND naming != 'Главный врач' AND naming != 'Медсестра (медбрат)'";
                 if (checkBox1.Checked)
-                    sqlstring += $" AND examination_date > DATEADD(day, -1, convert(date, getdate()))";
+                    sqlstring += $" AND examination_date >= DATEADD(day, -1, convert(date, getdate()))";
                 adapter = new SqlDataAdapter(sqlstring, dataBase.getConnection());
                 adapter.Fill(ds);
                 dataGridView1.DataSource = ds.Tables[0];
@@ -73,7 +74,7 @@ namespace CourseProjectTRPO
             }
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             try
             {
@@ -81,13 +82,13 @@ namespace CourseProjectTRPO
                 if (tabControl1.SelectedTab.Text == "Расписание")
                 {
                     DataGridViewRow row = dataGridView1.Rows[selectedRow];
-                    MedCard form = new MedCard(Convert.ToInt32(row.Cells[0].Value), false);
+                    MedCard form = new MedCard(Convert.ToInt32(row.Cells[0].Value), false, this);
                     form.ShowDialog();
                 }
                 else
                 {
                     DataGridViewRow row = dataGridView2.Rows[selectedRow];
-                    MedCard form = new MedCard(Convert.ToInt32(row.Cells[0].Value), false);
+                    MedCard form = new MedCard(Convert.ToInt32(row.Cells[0].Value), false, this);
                     form.ShowDialog();
                 }
             }
@@ -119,7 +120,7 @@ namespace CourseProjectTRPO
                 "AND naming != 'Главный врач' AND naming != 'Медсестра (медбрат)' AND concat(procedure_date, naming, surname, name, patronymic" +
                 $" procedure_time) like '%{textBox1.Text}%'";
             if (checkBox1.Checked)
-                sqlstring += $" AND procedure_date > DATEADD(day, -1, convert(date, getdate()))";
+                sqlstring += $" AND procedure_date >= DATEADD(day, -1, convert(date, getdate()))";
             adapter = new SqlDataAdapter(sqlstring, dataBase.getConnection());
             adapter.Fill(ds);
             sqlstring = "SELECT id_patient, examination_date AS 'Дата', naming AS 'Должность', " +
@@ -129,7 +130,7 @@ namespace CourseProjectTRPO
                 "AND naming != 'Главный врач' AND naming != 'Медсестра (медбрат)' AND concat(examination_date, naming, surname, name, patronymic" +
                 $" examination_time) like '%{textBox1.Text}%'";
             if (checkBox1.Checked)
-                sqlstring += $" AND examination_date > DATEADD(day, -1, convert(date, getdate()))";
+                sqlstring += $" AND examination_date >= DATEADD(day, -1, convert(date, getdate()))";
             adapter = new SqlDataAdapter(sqlstring, dataBase.getConnection());
             adapter.Fill(ds);
             dataGridView1.DataSource = ds.Tables[0];

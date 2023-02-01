@@ -117,12 +117,12 @@ namespace CourseProjectTRPO
                 {
                     selectedRow = e.RowIndex;
                     DataGridViewRow row = dataGridView1.Rows[selectedRow];
-                    MedCard form = new MedCard(Convert.ToInt32(row.Cells[0].Value), true);
+                    MedCard form = new MedCard(Convert.ToInt32(row.Cells[0].Value), true, new RegistrationPanel(new checkUser()));
                     form.ShowDialog();
                 }
                 else
                 {
-                    MedCard form = new MedCard(Convert.ToInt32(dataSet.Tables[0].Rows[0].ItemArray[1]), true);
+                    MedCard form = new MedCard(Convert.ToInt32(dataSet.Tables[0].Rows[0].ItemArray[1]), true, new RegistrationPanel(new checkUser()));
                     form.ShowDialog();
                 }
             }

@@ -65,11 +65,6 @@
     <Compile Include="ClientAddServ.Designer.cs">
       <DependentUpon>ClientAddServ.cs</DependentUpon>
     </Compile>
-    <Compile Include="CourseProjectTRPODataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CourseProjectTRPODataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="DataBase.cs" />
     <Compile Include="DoctorPanel.cs">
       <SubType>Form</SubType>
@@ -138,17 +133,6 @@
     <EmbeddedResource Include="TableChange.resx">
       <DependentUpon>TableChange.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="CourseProjectTRPODataSet.xsc">
-      <DependentUpon>CourseProjectTRPODataSet.xsd</DependentUpon>
-    </None>
-    <None Include="CourseProjectTRPODataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>CourseProjectTRPODataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="CourseProjectTRPODataSet.xss">
-      <DependentUpon>CourseProjectTRPODataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

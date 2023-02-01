@@ -38,8 +38,8 @@ namespace CourseProjectTRPO
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -49,13 +49,13 @@ namespace CourseProjectTRPO
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -156,16 +156,6 @@ namespace CourseProjectTRPO
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(160, 17);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(148, 63);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Удалить";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // button5
             // 
             this.button5.Location = new System.Drawing.Point(468, 17);
@@ -175,6 +165,16 @@ namespace CourseProjectTRPO
             this.button5.Text = "Обновить";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(160, 17);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(148, 63);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "Удалить";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // groupBox1
             // 
@@ -268,6 +268,54 @@ namespace CourseProjectTRPO
             this.tabPage2.Text = "Отчеты";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(646, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(100, 23);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Параметр:";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(752, 5);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(199, 32);
+            this.textBox4.TabIndex = 2;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.AutoCompleteCustomSource.AddRange(new string[] {
+            "Статистика о заболеваемости за месяц",
+            "Статистика о заболеваемости за год",
+            "Информация о выполненных работах за месяц",
+            "Информация о выполненных работах за год"});
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Статистика о заболеваемости за указанный прошедший месяц",
+            "Статистика о заболеваемости за указанный прошедший год",
+            "Информация о выполненных работах за указанный прошедший месяц",
+            "Информация о выполненных работах за указанный прошедший год"});
+            this.comboBox1.Location = new System.Drawing.Point(6, 6);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(609, 31);
+            this.comboBox1.TabIndex = 1;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(6, 43);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.Size = new System.Drawing.Size(945, 541);
+            this.dataGridView2.TabIndex = 0;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -297,54 +345,6 @@ namespace CourseProjectTRPO
             this.label1.Size = new System.Drawing.Size(179, 23);
             this.label1.TabIndex = 3;
             this.label1.Text = "Добро пожаловать,";
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 43);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.Size = new System.Drawing.Size(945, 541);
-            this.dataGridView2.TabIndex = 0;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.AutoCompleteCustomSource.AddRange(new string[] {
-            "Статистика о заболеваемости за месяц",
-            "Статистика о заболеваемости за год",
-            "Информация о выполненнх работах за месяц",
-            "Информация о выполненнх работах за год"});
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Статистика о заболеваемости за указанный прошедший месяц",
-            "Статистика о заболеваемости за указанный прошедший год",
-            "Информация о выполненнх работах за указанный прошедший месяц",
-            "Информация о выполненнх работах за указанный прошедший год"});
-            this.comboBox1.Location = new System.Drawing.Point(6, 6);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(609, 31);
-            this.comboBox1.TabIndex = 1;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(752, 5);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(199, 32);
-            this.textBox4.TabIndex = 2;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(646, 9);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(100, 23);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Параметр:";
             // 
             // MainDoctorPanel
             // 

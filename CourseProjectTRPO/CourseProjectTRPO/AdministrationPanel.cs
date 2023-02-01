@@ -13,7 +13,7 @@ namespace CourseProjectTRPO
     public partial class AdministrationPanel : Form
     {
         checkUser user;
-        public AdministrationPanel(checkUser user1)
+        public AdministrationPanel(checkUser user1, Authorization form1)
         {
             InitializeComponent();
             //изменение размера окна
@@ -23,6 +23,7 @@ namespace CourseProjectTRPO
             StartPosition = FormStartPosition.CenterScreen;
             user = user1;
             label2.Text = user.Surname + " " + user.Name + " " + user.Patronymic;
+            form1.areOpened = true;
         }
 
         private void AdministrationPanel_Activated(object sender, EventArgs e)

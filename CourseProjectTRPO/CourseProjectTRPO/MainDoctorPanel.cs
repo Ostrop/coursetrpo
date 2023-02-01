@@ -181,14 +181,14 @@ namespace CourseProjectTRPO
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //try
+            try
             {
-                int sum = 0;
+                double sum = 0;
                 if (comboBox1.Text == "Статистика о заболеваемости за указанный прошедший месяц")
                 {
                     DateTime time = Convert.ToDateTime(textBox4.Text);
                     newstring = "SELECT naming as 'Название', COUNT(id_assigned_diagnosis) AS 'Кол-во заб.' FROM Assigned_diagnoses INNER JOIN Diagnoses " +
-                        $"ON Assigned_diagnoses.id_diagnosis = Diagnoses.id_diagnosis where start_date <= convert(date, {time.AddMonths(1)}) GROUP BY naming";
+                        $"ON Assigned_diagnoses.id_diagnosis = Diagnoses.id_diagnosis where start_date between convert(date, '{time.AddMonths(-1)}') AND convert(date, '{time}') GROUP BY naming";
                     adapter = new SqlDataAdapter(newstring, dataBase.getConnection());
                     ds = new DataSet();
                     adapter.Fill(ds);
@@ -206,7 +206,7 @@ namespace CourseProjectTRPO
                 {
                     DateTime time = Convert.ToDateTime(textBox4.Text);
                     newstring = "SELECT naming as 'Название', COUNT(id_assigned_diagnosis) AS 'Кол-во заб.' FROM Assigned_diagnoses INNER JOIN Diagnoses " +
-                        $"ON Assigned_diagnoses.id_diagnosis = Diagnoses.id_diagnosis where start_date <= convert(date, {time.AddYears(1)}) GROUP BY naming";
+                        $"ON Assigned_diagnoses.id_diagnosis = Diagnoses.id_diagnosis where start_date between convert(date, '{time.AddYears(-1)}') AND convert(date, '{time}')  GROUP BY naming";
                     adapter = new SqlDataAdapter(newstring, dataBase.getConnection());
                     ds = new DataSet();
                     adapter.Fill(ds);
@@ -218,16 +218,40 @@ namespace CourseProjectTRPO
                     for (int i = 0; i < dataGridView2.Rows.Count; i++)
                         dataGridView2.Rows[i].Cells[2].Value = (Convert.ToInt32(dataGridView2.Rows[i].Cells[1].Value) / sum) * 100;
                 }
-                else if (comboBox1.Text == "Информация о выполненнх работах за указанный прошедший месяц")
+                else if (comboBox1.Text == "Информация о выполненных работах за указанный прошедший месяц")
                 {
+                    DateTime time = Convert.ToDateTime(textBox4.Text);
+                    newstring = "SELECT type_procedure as 'Название', COUNT(id_assigned_procedure) AS 'Кол-во процедур' FROM Assigned_procedures INNER JOIN Procedures" +
+                        $" ON Assigned_procedures.id_procedure= Procedures.id_procedure where procedure_date between convert(date, '{time.AddMonths(-1)}') AND convert(date, '{time}')  GROUP BY type_procedure";
+                    adapter = new SqlDataAdapter(newstring, dataBase.getConnection());
+                    ds = new DataSet();
+                    adapter.Fill(ds);
+                    ds.Tables[0].Columns.Add("%");
+                    dataGridView2.DataSource = ds.Tables[0];
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        sum += Convert.ToInt32(dataGridView2.Rows[i].Cells[1].Value);
 
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        dataGridView2.Rows[i].Cells[2].Value = (Convert.ToInt32(dataGridView2.Rows[i].Cells[1].Value) / sum) * 100;
                 }
-                else if (comboBox1.Text == "Информация о выполненнх работах за указанный прошедший год")
+                else if (comboBox1.Text == "Информация о выполненных работах за указанный прошедший год")
                 {
+                    DateTime time = Convert.ToDateTime(textBox4.Text);
+                    newstring = "SELECT type_procedure as 'Название', COUNT(id_assigned_procedure) AS 'Кол-во процедур' FROM Assigned_procedures INNER JOIN Procedures" +
+                        $" ON Assigned_procedures.id_procedure= Procedures.id_procedure where procedure_date between convert(date, '{time.AddYears(-1)}') AND convert(date, '{time}') GROUP BY type_procedure";
+                    adapter = new SqlDataAdapter(newstring, dataBase.getConnection());
+                    ds = new DataSet();
+                    adapter.Fill(ds);
+                    ds.Tables[0].Columns.Add("%");
+                    dataGridView2.DataSource = ds.Tables[0];
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        sum += Convert.ToInt32(dataGridView2.Rows[i].Cells[1].Value);
 
+                    for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        dataGridView2.Rows[i].Cells[2].Value = (Convert.ToInt32(dataGridView2.Rows[i].Cells[1].Value) / sum) * 100;
                 }
             }
-            //catch { }
+            catch { }
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)

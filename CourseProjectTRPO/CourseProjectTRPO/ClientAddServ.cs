@@ -39,6 +39,7 @@ namespace CourseProjectTRPO
             {
                 label5.Visible = false;
                 dataGridView3.Visible = false;
+                textBox2.Visible = label6.Visible = false;
             }
             adapter = new SqlDataAdapter("SELECT Staff.id_staff, naming, surname, [name], patronymic, [date] FROM Staff INNER JOIN Posts   " +
                 "ON Staff.id_post = Posts.id_post JOIN Timetable ON Staff.id_staff = Timetable.id_staff WHERE Timetable.[date] " +
@@ -79,31 +80,54 @@ namespace CourseProjectTRPO
         private void TextChanged(object sender, EventArgs e)
         {
             try
-            {
-                TextBox tb = (TextBox)sender;
-
-
+                            {
                 for (int i = 0; i < listtextbox.Count; i++)
                 {
-                    if (listlabel[i].Text == "id_staff" || listlabel[i].Text == "examination_date" || listlabel[i].Text == "procedure_date")
+                    if (tablename == "Examinations")
                     {
-                        adapter = new SqlDataAdapter($"SELECT examination_time as 'Время' FROM Examinations where id_staff = {listtextbox[0].Text} " +
-                                $"AND examination_date = '{listtextbox[1].Text}' UNION SELECT procedure_time as 'Время' FROM [Assigned_procedures] where id_staff = {listtextbox[0].Text} AND " +
-                                $"procedure_date = '{listtextbox[1].Text}'", dataBase.getConnection());
+                        if (listlabel[i].Text == "id_staff" || listlabel[i].Text == "examination_date")
+                        {
+                            adapter = new SqlDataAdapter($"SELECT examination_time as 'Время' FROM Examinations where id_staff = {listtextbox[0].Text} " +
+                                    $"AND examination_date = '{listtextbox[1].Text}' UNION SELECT procedure_time as 'Время' FROM [Assigned_procedures] where id_staff = {listtextbox[0].Text} AND " +
+                                    $"procedure_date = '{listtextbox[1].Text}'", dataBase.getConnection());
 
-                        ds = new DataSet();
-                        adapter.Fill(ds);
-                        dataGridView2.DataSource = ds.Tables[0];
+                            ds = new DataSet();
+                            adapter.Fill(ds);
+                            dataGridView2.DataSource = ds.Tables[0];
+                        }
+                        else
+                            dataGridView2.Rows.Clear();
+                        if (listtextbox[i].Text == "")
+                        {
+                            button1.Enabled = false;
+                            break;
+                        }
+                        else
+                            button1.Enabled = true;
                     }
                     else
-                        dataGridView2.Rows.Clear();
-                    if (listtextbox[i].Text == "")
                     {
-                        button1.Enabled = false;
-                        break;
+                        if (listlabel[i].Text == "id_staff" || listlabel[i].Text == "procedure_date")
+                        {
+                            adapter = new SqlDataAdapter($"SELECT examination_time as 'Время' FROM Examinations where id_staff = {listtextbox[0].Text} " +
+                                    $"AND examination_date = '{listtextbox[2].Text}' UNION SELECT procedure_time as 'Время' FROM [Assigned_procedures] where id_staff = {listtextbox[0].Text} AND " +
+                                    $"procedure_date = '{listtextbox[2].Text}'", dataBase.getConnection());
+
+                            ds = new DataSet();
+                            adapter.Fill(ds);
+                            dataGridView2.DataSource = ds.Tables[0];
+                        }
+                        else
+                            dataGridView2.Rows.Clear();
+                        if (listtextbox[i].Text == "")
+                        {
+                            button1.Enabled = false;
+                            break;
+                        }
+                        else
+                            button1.Enabled = true;
                     }
-                    else
-                        button1.Enabled = true;
+
                 }
             }
             catch { }

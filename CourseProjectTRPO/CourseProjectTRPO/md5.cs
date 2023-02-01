@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 
 namespace CourseProjectTRPO
 {
-    class md5
+    public class md5
     {
         public static string hashPassword(string password)
         {

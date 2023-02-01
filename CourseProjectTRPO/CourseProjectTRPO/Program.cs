@@ -16,8 +16,6 @@ namespace CourseProjectTRPO
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Authorization());
-            checkUser user = new checkUser("Системный администратор", "Дихнич", "Олег", "Анатольевич");
             Application.Run(new Authorization());
         }
     }

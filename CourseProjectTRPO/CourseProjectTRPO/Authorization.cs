@@ -15,6 +15,7 @@ namespace CourseProjectTRPO
     {
         DataBase dataBase = new DataBase();
         Form form1;
+        public bool areOpened;
         public Authorization()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace CourseProjectTRPO
             StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void button1_Click(object sender, EventArgs e)
         {
 
             string login = textBox1.Text;
@@ -45,7 +46,7 @@ namespace CourseProjectTRPO
                 switch (user.Post)
                 {
                     case "Системный администратор":
-                        form1 = new AdministrationPanel(user);
+                        form1 = new AdministrationPanel(user, this);
                         this.Hide();
                         form1.ShowDialog();
                         textBox2.Text = string.Empty;
